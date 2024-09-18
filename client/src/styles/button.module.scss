@@ -1,0 +1,11 @@
+.btn {
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    user-select: none;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+    }
+}
