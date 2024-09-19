@@ -10,7 +10,36 @@ const Navbar = () => {
     return (
         <nav className={styles.header_nav}>
             <div className={styles.header_main}>
+                <button 
+                    className="btn btn-primary" 
+                    type="button" 
+                    data-bs-toggle="offcanvas" 
+                    data-bs-target="#offcanvasRight" 
+                    aria-controls="offcanvasRight"
+                >
+                    <i className="bi bi-list"></i>
+                </button>
+                <div 
+                    className="offcanvas offcanvas-end" 
+                    tabIndex="-1" 
+                    id="offcanvasRight" 
+                    aria-labelledby="offcanvasRightLabel"
+                >
+                    <div className="offcanvas-header">
+                        <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+                        <button 
+                            type="button" 
+                            className="btn-close text-reset" 
+                            data-bs-dismiss="offcanvas" 
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div className="offcanvas-body">
+                        Các danh mục
+                    </div>
+                </div>
                 <img src={logo} alt="" className={styles.logo} />
+                
                 <ul className={styles.header_main_nav}>
                     <li>
                      <Link to="/about">Về chúng tôi <i className="bi bi-caret-down-fill"></i></Link>
@@ -37,7 +66,7 @@ const Navbar = () => {
                         </div>
                     </li>
                     <li>
-                     <Link to="/courses">Khóa học <i className="bi bi-caret-down-fill"></i></Link>.
+                     <Link to="/courses">Khóa học <i className="bi bi-caret-down-fill"></i></Link>
                     </li>
                     <li>
                      <Link to="/student">Học viên <i className="bi bi-caret-down-fill"></i></Link>

@@ -1,0 +1,35 @@
+.home_banner {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    .col_inner {
+        
+        margin-left: 0;
+        margin-right: auto;
+        text-align: left;
+        position: relative;
+        width: 100%;
+    }
+    h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+    strong {
+        font-weight: bolder;
+    }
+    img {
+        border: solid blue;
+        border-width: 7px 8px 1px 1px;
+        border-radius: 7px
+    }
+    button {
+        color: #fff;
+        width: 25em;
+
+        span {
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+    }
+
+    
+}

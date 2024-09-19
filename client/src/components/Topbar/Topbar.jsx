@@ -4,7 +4,7 @@ import '../../styles/index.scss'
 const Topbar = () => {
     return (
       <div className="topbar bg-light py-2">
-        <div className="container d-flex justify-content-around align-items-center mw-75">
+        <div className="container d-flex justify-content-around align-items-center mw-100">
           <div className="left-section">
             <a href="tel:123-456-7890" className="me-3 text-dark">
                <i className="bi bi-telephone-forward-fill mx-2"></i>
