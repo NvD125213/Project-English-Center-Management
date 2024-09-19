@@ -8,11 +8,11 @@ const Topbar = () => {
           <div className="left-section">
             <a href="tel:123-456-7890" className="me-3 text-dark">
                <i className="bi bi-telephone-forward-fill mx-2"></i>
-               <span>               0968-456-7890               </span>
+               <span>  0968-456-7890 </span>
             </a>
           </div>
           <div className="left-section">
-            <h4>Zenlish - Học TOEIC 1 Lần Là Đạt</h4>
+            <span>Zenlish - Học TOEIC 1 Lần Là Đạt</span>
           </div>
 
           <div className="right-section d-flex">

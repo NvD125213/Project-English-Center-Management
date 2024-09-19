@@ -28,15 +28,7 @@ $main-color: blue;
                 color: black;
 
             }
-            .dropdown_menu {
-                display: none; 
-                position: absolute;
-                top: 100%; 
-                left: 0;
-                background-color: white;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                z-index: 999;
-            }
+           
             &::after {
                 content: '';
                 position: absolute;
@@ -52,7 +44,43 @@ $main-color: blue;
             &:hover::after {
                 transform: scaleX(1);
             }
-            
+            &:hover .sub_menu {
+                display: block;
+            }
+            .sub_menu {
+                display: none;
+                background: #fff;
+                position: absolute;
+                top: 130%;
+                width: 15em;
+                box-shadow: 3px 5px 5px #aaaaaa;
+                border-radius: 0.25em;
+                a {
+                    display: flex;
+                    padding: 1em;
+                    border-bottom: 1px solid rgba(170, 170, 170, 0.5);                    
+                    i {
+                        color: hsla(0, 0%, 0%, 0.85);
+                    }
+                
+                    &:hover p {
+                        transform: translateX(5px);
+                        transition: transform 0.5s;
+                        font-weight: 600;
+                        
+                    }
+                    p {
+                        margin-left: 10px;
+                        color:hsla(0,0%,40%,.85);
+                        font-size: 0.9em;
+                        margin-bottom: 0 !important;
+                    }
+                
+                }
+
+            }
+
+        
         }
 
        .button_nav {

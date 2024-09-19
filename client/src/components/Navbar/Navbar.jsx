@@ -6,7 +6,6 @@ import '../../styles/index.scss';
 import { Link } from 'react-router-dom';  
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
 const Navbar = () => {
     return (
         <nav className={styles.header_nav}>
@@ -15,13 +14,30 @@ const Navbar = () => {
                 <ul className={styles.header_main_nav}>
                     <li>
                      <Link to="/about">Về chúng tôi <i className="bi bi-caret-down-fill"></i></Link>
-                        <ul className={styles.dropdown_menu}>
-                            <li><Link className="dropdown-item" to="/about/team">Đội ngũ</Link></li>
-                            <li><Link className="dropdown-item" to="/about/history">Lịch sử</Link></li>
-                        </ul>
+                        <div className={styles.sub_menu}>
+                            <Link>
+                                <i class="bi bi-caret-right-fill"></i>
+                                <p>Hệ thống cơ sở</p>
+                             
+                            </Link>
+                            <Link>
+                                <i class="bi bi-caret-right-fill"></i>
+                                <p>Giới thiệu</p>
+                             
+
+                            </Link>
+                            <Link>
+                                <i class="bi bi-caret-right-fill"></i>
+                                <p>Tin tức</p>
+                            </Link>
+                            <Link>
+                                <i class="bi bi-caret-right-fill"></i>
+                                <p>Tuyển dụng</p>
+                            </Link>
+                        </div>
                     </li>
                     <li>
-                     <Link to="/courses">Khóa học <i className="bi bi-caret-down-fill"></i></Link>
+                     <Link to="/courses">Khóa học <i className="bi bi-caret-down-fill"></i></Link>.
                     </li>
                     <li>
                      <Link to="/student">Học viên <i className="bi bi-caret-down-fill"></i></Link>
