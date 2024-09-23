@@ -1,0 +1,7 @@
+.home_teacher {
+    padding-top: 1.875em;
+    padding-bottom: 1.875em;
+}
+.slick-prev:before, .slick-next:before {
+    color: #1f4a8d !important;
+}

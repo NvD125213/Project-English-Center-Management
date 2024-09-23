@@ -1,0 +1,25 @@
+.home_certificate {
+    padding-top: 1.875em;
+    padding-bottom: 1.875em;
+}
+
+
+@keyframes zenScale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+.home_certificate button {
+    background-color: #ff7900 !important;
+    padding: 0.5em 1.5em;
+    animation: zenScale 3s alternate-reverse forwards infinite; /* Tạo hiệu ứng liên tục */
+    transition: transform 1s ease-in-out; /* Hiệu ứng hover */
+    margin: 1.5em 5em;
+}

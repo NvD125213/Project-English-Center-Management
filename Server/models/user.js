@@ -1,6 +1,5 @@
 import mongoose, {Schema} from 'mongoose';
-import isEmail from 'validator/lib/isEmail';
-
+import  isEmail  from 'validator/lib/isEmail.js';
 const User = mongoose.model('User', 
     new Schema({
         name: {
@@ -19,7 +18,7 @@ const User = mongoose.model('User',
             type: String,
             required: true, 
             validate: {
-                validator: (value) => isEmail,
+                validator: (value) => isEmail(value),
                 message: 'Định dạng của Email không đúng !'
             }
         },
@@ -34,8 +33,10 @@ const User = mongoose.model('User',
             required: true
         },
         role: {
-            type: Schema.Types.ObjectId,
-            ref: 'Role'
+            type: Number,
+            enum: [1, 2], 
+            required: true,
+            default: 2 
         },
         createAt: {
             type: Date,

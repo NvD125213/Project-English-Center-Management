@@ -1,0 +1,32 @@
+.home-route {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgb(230, 245, 255);
+    position: relative;
+
+}
+.level-goal {
+    background-color: #fff;
+    padding: 30px;
+}
+.level-goal h4 {
+    font-weight: normal;
+    font-size: 1.25em !important;
+    margin-bottom: 15px !important;
+}
+.select-level, .select-goal {
+    margin-bottom: 30px;
+
+}
+.level-goal .link_test {
+    position: absolute;
+    top: 85px;
+    right: 125px;
+    font-size: 14px;
+    color: blue !important;
+}
+
+.level-goal button {
+    text-transform: uppercase;
+    font-weight: 500;
+}
