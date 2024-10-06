@@ -1,0 +1,32 @@
+/* Subject.css */
+.Space {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+.table-container {
+  padding-bottom: 6em; /* Khoảng cách giữa bảng và footer */
+  padding-top: 2rem;
+}
+
+/* Admin.css */
+.SideMenuAndPageContent {
+  display: flex;
+  flex-direction: row;
+}
+
+.SideMenu {
+  width: 200px; 
+  background-color: #f0f2f5; 
+}
+
+.Content {
+  flex: 1; 
+  padding: 20px;
+  overflow-y: auto; 
+}
+.table-pagination {
+margin-top: 20px !important;
+}
+.ant-pagination li a {
+  margin-top: 7px;
+}

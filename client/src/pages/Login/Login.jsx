@@ -1,46 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './styles.css';
-import useToggleContainer from '../../helpers/useToggleContainer.js'; // Import custom hook
+import useToggleContainer from '../../helpers/useToggleContainer.js'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from "../../store/userSlice.js";
+import LoadingSpinner from "../../components/LoadingSpinner/index.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { isActive, handleRegisterClick, handleLoginClick } = useToggleContainer();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [logName, setLogName] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { isLoading, error, isAuthenticated } = useSelector((state) => state.user);
+
+  const handleLoginEvent = async (e) => {
+    e.preventDefault();
+    const userData = { email, password };
+    await dispatch(loginUser(userData));
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) { // Điều hướng nếu đã xác thực
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]); // Theo dõi isAuthenticated
 
   return (
-    <div>
+    <div className="d-flex justify-content-center mt-5 mb-5">
       <div className={`containers ${isActive ? "active" : ""}`} id="container">
-        {/* Form đăng ký */}
         <div className="form-container sign-up">
           <form>
-            <h1>Create Account</h1>
-            <div className="social-icons">
-              <a href="#" className="icon"><i className="fa-brands fa-google-plus-g" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-facebook-f" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-github" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-linkedin-in" /></a>
-            </div>
-            <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
+            <h1>Đăng Ký</h1>
+            <input type="text" placeholder="Tên" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" placeholder="Tên đăng nhập" value={logName} onChange={(e) => setLogName(e.target.value)} />
+            <input type="text" placeholder="Số điện thoại" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder="Mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <button>Đăng Ký</button>
           </form>
         </div>
 
-        {/* Form đăng nhập */}
         <div className="form-container sign-in">
-          <form>
-            <h1>Sign In</h1>
-            <div className="social-icons">
-              <a href="#" className="icon"><i className="fa-brands fa-google-plus-g" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-facebook-f" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-github" /></a>
-              <a href="#" className="icon"><i className="fa-brands fa-linkedin-in" /></a>
-            </div>
-            <span>or use your email password</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <a href="#">Forget Your Password?</a>
-            <button>Sign In</button>
+          <form onSubmit={handleLoginEvent}>
+            <h1>Đăng Nhập</h1>
+            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <a href="#">Quên mật khẩu?</a>
+            <button type="submit">
+                {isLoading ? <LoadingSpinner/> : "Đăng Nhập"}
+            </button>
+            {error && (
+              <div className="alert alert-danger mt-2" role="alert">{error}</div>
+            )}
           </form>
         </div>
 
@@ -48,17 +65,13 @@ const Login = () => {
           <div className="toggle">
             <div className="toggle-panel toggle-left">
               <h1>Welcome Back!</h1>
-              <p>Enter your personal details to use all of site features</p>
-              <button className="hidden" id="login" onClick={handleLoginClick}>
-                Sign In
-              </button>
+              <p>Nhập thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
+              <button className="hidden" id="login" onClick={handleLoginClick}>Đăng Nhập</button>
             </div>
             <div className="toggle-panel toggle-right">
               <h1>Hello, Friend!</h1>
-              <p>Register with your personal details to use all of site features</p>
-              <button className="hidden" id="register" onClick={handleRegisterClick}>
-                Sign Up
-              </button>
+              <p>Đăng ký với thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
+              <button className="hidden" id="register" onClick={handleRegisterClick}>Đăng Ký</button>
             </div>
           </div>
         </div>

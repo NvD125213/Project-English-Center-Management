@@ -1,8 +1,8 @@
 import React from "react";
 import styles from '../Navbar/Navbar.module.scss';
-import buttons from '../../styles/button.module.scss'
-import logo from '../../assets/zenlish.png';
-import '../../styles/index.scss';
+import buttons from '../../../styles/button.module.scss'
+import logo from '../../../assets/zenlish.png';
+import '../../../styles/index.scss';
 import { Link } from 'react-router-dom';  
 import 'bootstrap-icons/font/bootstrap-icons.css';
 

@@ -1,0 +1,20 @@
+.AppFooter {
+    display: flex;
+    justify-content: center; /* Căn giữa các link theo chiều ngang */
+    align-items: center;
+    background-color: #f0f0f0; /* Màu nền nhạt */
+    padding: 20px; /* Tạo không gian trên/dưới */
+    border-top: 1px solid #d9d9d9; /* Đường viền mỏng trên đầu footer */
+  }
+  
+  .footer-link {
+    margin: 0 15px; /* Khoảng cách giữa các link */
+    color: #1890ff; /* Màu xanh cho link */
+    font-size: 16px; /* Tăng kích thước chữ một chút */
+  }
+  
+  .footer-link:hover {
+    color: #40a9ff; /* Màu khi hover */
+    text-decoration: underline; /* Gạch chân khi hover */
+  }
+  

@@ -1,4 +1,5 @@
 import Post from '../models/post.js';  // Import model 'Post'
+import models from '../models'
 
 const getPost = async (req, res) => {
     try { 

@@ -6,7 +6,8 @@ const Subject = mongoose.model('Subject',
         createAt: {
             type: Date,
             default: Date.now
-        }
+        },
+        exams: [{type: Schema.Types.ObjectId, ref: 'Exam'}]
     })
 )
 
