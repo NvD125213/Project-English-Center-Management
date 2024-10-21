@@ -3,7 +3,7 @@ import './styles.css';
 import useToggleContainer from '../../helpers/useToggleContainer.js'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from "../../store/userSlice.js";
-import LoadingSpinner from "../../components/LoadingSpinner/index.jsx";
+import  LoadingSpinner from "../../components/LoadingSpinner/index.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

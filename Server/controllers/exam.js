@@ -1,6 +1,6 @@
 import {Exam, Subject} from "../models/index.js";
 
-const ExamController ={
+const ExamController = {
     get: async (req, res) => {
        try {
             const exams = await Exam.find().populate('subject')

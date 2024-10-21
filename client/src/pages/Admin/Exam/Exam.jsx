@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { DownOutlined } from '@ant-design/icons';
+import './index.css'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { createExam, deleteExam, getExam } from '../../../store/examSlice';
-import { Space, Table, Typography, Button, Row, Col, Modal} from "antd"; 
+import { Space, Table, Typography, Button, Row, Col, Modal, Dropdown, Menu} from "antd"; 
 import { toast, ToastContainer } from 'react-toastify';
-import Loading from '../../../components/LoadingSpinner/index.jsx'; // Import Loading component
 import { closeAddModal, openAddModal } from '../../../store/modalSlice.js';
 import Add from './Add.jsx';
 
 const Exam = () => {
+  // Dispatch lấy dữ liệu từ Slice 
   const dispatch = useDispatch();
 
+  // Phân trang
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
   });
+
+  // Navigate chuyển đổi Route
+  const navigate = useNavigate()
+  const handleMenuClick = (record, part) => {
+    const examId = record._id;
+    navigate(`/admin/detailExam?examID=${examId}&part=${part}`);
+  };
+  
+  
+  // Chuyển đổi dữ liệu giữa các part
 
   const { exams, loading, error } = useSelector((state) => state.exam);
 
@@ -55,7 +69,7 @@ const Exam = () => {
       cancelText: 'Hủy',
       onOk: async () => {
         try {
-          await dispatch(deleteExam(record._id)).unwrap();  // Dùng unwrap để lấy dữ liệu trả về
+          await dispatch(deleteExam(record._id)).unwrap();  
           toast.success('Xóa bài thi thành công!');
           await dispatch(getExam()); 
         } catch(error) {
@@ -94,13 +108,32 @@ const Exam = () => {
           {
             title: "Chủ đề",
             dataIndex: "subject",
-            render: (subject) => subject.name
+            render: (subject) => subject ? subject.name : 'Không có chủ đề'
           },
           {
             title: "Hành động",
             render: (text, record) => (
               <Space size="middle">
-                <Button className="btn btn-primary">Sửa</Button>
+              <Dropdown
+                overlay={(
+                  <Menu className="dropdownPart" onClick={({ key }) => handleMenuClick(record, key)}>
+                    <Menu.Item key="1">Part 1</Menu.Item>
+                    <Menu.Item key="2">Part 2</Menu.Item>
+                    <Menu.Item key="3">Part 3</Menu.Item>
+                    <Menu.Item key="4">Part 4</Menu.Item>
+                    <Menu.Item key="5">Part 5</Menu.Item>
+                    <Menu.Item key="6">Part 6</Menu.Item>
+                    <Menu.Item key="7">Part 7</Menu.Item>
+                  </Menu>
+                )}
+              >
+                <Typography.Link>
+                  <Space>
+                    Thao tác
+                    <DownOutlined />
+                  </Space>
+                </Typography.Link>
+              </Dropdown>           
                 <Button className="btn btn-danger" onClick={() => handleDelete(record)}>Xóa</Button>
               </Space>
             ),
@@ -116,7 +149,7 @@ const Exam = () => {
           }}
         style={{ width: '100%' }}
       />
-
+      
     
       <Add 
          isModalOpen={isAddOpenModal}

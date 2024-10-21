@@ -6,6 +6,7 @@ import Add from './Add'; // Import modal
 import Update from './Update'
 import './Subject.css'; 
 import { toast, ToastContainer } from 'react-toastify';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 function Subject() {
   const dispatch = useDispatch();
@@ -101,6 +102,8 @@ function Subject() {
 
   return (
     <Space size={50} direction="vertical" className="table-container container-fluid">
+            {loading && <LoadingSpinner/>}
+
       <Row justify="space-between" align="middle">
         <Col>
           <Typography.Title level={4}>

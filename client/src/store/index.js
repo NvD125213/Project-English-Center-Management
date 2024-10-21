@@ -3,6 +3,7 @@ import userReducer from './userSlice'
 import subjectReducer from './subjectSlice'
 import examReducer from './examSlice'
 import modalSlice from './modalSlice'
+import questionReducer from './questionSlice'
 
 export const store = configureStore({
     reducer: {
@@ -10,5 +11,7 @@ export const store = configureStore({
         user: userReducer,
         subject: subjectReducer,
         exam: examReducer,
+        questions: questionReducer,
+
     }
 })

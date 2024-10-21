@@ -2,7 +2,13 @@ import mongoose, {Schema} from "mongoose";
 
 const Question = mongoose.model('Question', 
     new Schema({
-        title: {type: String, required: true},
+        title: {type: String},
+        element: [
+            {
+                typeUrl: { type: String, enum: ['audio', 'image']},
+                url: { type: String }
+            }
+        ],
         options: [
             {
                 option: { type: String },
@@ -21,9 +27,9 @@ const GroupQuestion = mongoose.model('GroupQuestion',
     new Schema({
         part: { type: Number, required: true, min: 1, max: 7 },
         type: { type: String, enum: ['single', 'group'], required: true },
-        element: [
+        elements: [
             {
-                typeUrl: { type: String, enum: ['image', 'audio'], required: true},
+                typeUrl: { type: String, enum: ['image', 'audio']},
                 url: {type: String}
             }
         ],

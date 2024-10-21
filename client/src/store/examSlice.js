@@ -42,13 +42,14 @@ const examSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getExam.fulfilled, (state, action) => {
-        state.exams = action.payload; // action.payload là dữ liệu từ response.data
+        state.exams = action.payload; 
       })
       .addCase(createExam.pending, (state) => {
         state.loading = true;
       })
       .addCase(createExam.fulfilled, (state, action) => {
         state.loading = false;
+        
         state.exams = action.payload
       })
       

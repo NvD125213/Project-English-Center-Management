@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.js'; // Đường dẫn đến file route user
 import subjectRoutes from './routes/subject.js'
 import examRoutes from './routes/exam.js'
+import questionRoutes from './routes/question.js'
 import cors from 'cors'
 dotenv.config();  
 
@@ -26,6 +27,7 @@ const connection = async () => {
 app.use('/api/user', userRoutes);
 app.use('/api/subject', subjectRoutes);
 app.use('/api/exam', examRoutes);
+app.use('/api/question', questionRoutes);
 
 
 const port = process.env.PORT || 3000;
