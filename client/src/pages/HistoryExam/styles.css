@@ -1,0 +1,70 @@
+/* Disabled input */
+.form-check-input:disabled {
+    color: black;
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
+    opacity: 1;
+}
+
+/* Correct Option */
+.correct-option {
+    background-color: #1ade48;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Selected Correct Option */
+.selected-correct {
+    background-color: #1ade48;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+/* Selected Incorrect Option */
+.selected-incorrect {
+    background-color: #dd2232;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+/* Style cho input và label */
+.form-check {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-check-label {
+    padding-left: 10px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Hover effect */
+.form-check-label:hover {
+    opacity: 0.9;
+}
+
+.true-correct {
+    background-color: #1ade48;
+    color: #fff;
+}
+
+.false-correct {
+    background-color: #dd2232;
+    color: #fff;
+}

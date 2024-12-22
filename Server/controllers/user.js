@@ -7,14 +7,14 @@ const UserController = {
         const { email, password } = req.body;
         try {
             const user = await User.findOne({ email });
-            if(!user) {
+            if (!user) {
                 return res.status(401).json({
-                    message: 'Email hoặc mật khẩu không chính xác !'
+                    message: 'Email không chính xác !'
                 })
             }
 
             const checkPass = await bcrypt.compare(password, user.password);
-            if(!checkPass) {
+            if (!checkPass) {
                 return res.status(401).json({
                     message: 'Sai mật khẩu! Hãy nhập lại mật khẩu!'
                 })
@@ -24,7 +24,7 @@ const UserController = {
                 token: token,
                 user: user
             })
-        } catch(error) {
+        } catch (error) {
             res.status(500).json({
                 message: 'Có lỗi xảy ra: ' + error
             })
@@ -63,7 +63,7 @@ const UserController = {
     get: async (req, res) => {
         const users = await User.find();
         try {
-            if(users.length == 0) {
+            if (users.length == 0) {
                 return res.status(400).json({
                     message: ' Danh sách người dùng rỗng!'
                 })
@@ -71,42 +71,42 @@ const UserController = {
             return res.status(200).json({
                 data: users
             })
-        } catch(error) {
+        } catch (error) {
             return res.status(500).json({
                 message: 'Có lỗi xảy ra: ' + error
             })
         }
-      
+
     },
     getByID: async (req, res) => {
         try {
-            const user = await User.findById(req.params.id); // Sử dụng findById để tìm theo ID
-            if(user) {
+            const user = await User.findById(req.user.id).select('-role');
+            if (user) {
                 return res.status(200).json({
                     ok: true,
                     data: user
                 });
             }
             return res.status(404).json({ ok: false, message: "Người dùng không tồn tại!" }); // Thay đổi status code thành 404
-        } catch(error) {
+        } catch (error) {
             return res.status(500).json({
                 message: 'Có lỗi xảy ra: ' + error
             });
         }
     },
     update: async (req, res) => {
-        const {id} = req.params
+        const { id } = req.params
         const updates = req.body
 
         try {
             if (updates.password) {
                 updates.password = await bcrypt.hash(updates.password, 10);
             }
-            const userUpdate = await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true});
+            const userUpdate = await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
             if (!userUpdate) {
                 return res.status(404).json({ ok: false, message: "Người dùng không tồn tại!" });
             }
-    
+
             return res.status(200).json({
                 ok: true,
                 data: userUpdate
@@ -118,16 +118,16 @@ const UserController = {
         }
     },
     delete: async (req, res) => {
-        try{
-            const user = await User.findByIdAndDelete(req.params.id) 
-            if(!user) {
+        try {
+            const user = await User.findByIdAndDelete(req.params.id)
+            if (!user) {
                 return res.status(404).json({ ok: false, message: "Người dùng không tồn tại!" });
             }
             return res.status(200).json({
                 ok: true,
                 message: 'Xóa thành công !'
-            }); 
-        } catch(error) {
+            });
+        } catch (error) {
             return res.status(500).json({
                 message: 'Có lỗi xảy ra: ' + error
             });

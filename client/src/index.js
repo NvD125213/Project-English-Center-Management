@@ -8,8 +8,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';
-import {Provider} from 'react-redux'
-import {store} from './store'
+import { Provider } from 'react-redux'
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from './store'
 import 'antd/dist/reset.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,8 +19,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
    <React.StrictMode>
       <Provider store={store}>
-         <RouterProvider router={router}  />    
+         <PersistGate loading={null} persistor={persistor}>
+            <RouterProvider router={router} />
+         </PersistGate>
       </Provider>
-  </React.StrictMode>
- 
+   </React.StrictMode>
+
 );

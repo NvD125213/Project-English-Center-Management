@@ -21,8 +21,9 @@ function AdminHeader() {
   return (
     <div className="AppHeader">
       <Image
-        width={40}
-        src="https://yt3.ggpht.com/ytc/AMLnZu83ghQ28n1SqADR-RbI2BGYTrqqThAtJbfv9jcq=s176-c-k-c0x00ffffff-no-rj"
+        width={50}
+        style={{ backgroundColor: 'blue' }}
+        src="https://zenlishtoeic.vn/wp-content/uploads/2022/11/zenlish-logo-trang-moi-01.png"
       ></Image>
       <Typography.Title>Zenlish's Dashboard</Typography.Title>
       <Space>

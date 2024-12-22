@@ -1,0 +1,81 @@
+.list-skill {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.skill-item {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.skill-item:first-child {
+    background-color: #0066ff;
+    /* Màu xanh mặc định */
+}
+
+.skill-item:last-child {
+    background-color: #0066ff;
+    /* Màu xanh mặc định */
+}
+
+.skill-item.active {
+    background-color: #ff6600;
+    /* Màu cam khi active */
+}
+
+.skill-item:not(.active) {
+    background-color: #0066ff;
+    /* Trở lại màu xanh khi không active */
+}
+
+.zen-accordion {
+    margin-bottom: 30px;
+}
+
+.ant-collapse-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #1a73e8;
+}
+
+.ant-card {
+    transition: transform 0.3s ease;
+}
+
+.ant-card:hover {
+    transform: translateY(-5px);
+}
+
+.ant-collapse {
+    background-color: #f9f9f9;
+}
+
+.ant-collapse-item {
+    border: 1px solid #e6e6e6;
+    margin-bottom: 0 !important;
+}
+
+.ant-collapse-header {
+    font-weight: bold;
+
+    color: #1a73e8;
+    text-align: left !important;
+    padding-left: 16px;
+}
+
+.ant-card-body {
+    padding: 10px !important;
+    text-align: left;
+    position: relative;
+}
+
+
+.ant-card-body h3,
+.ant-card-body p {
+    font-size: 1rem !important;
+}

@@ -1,22 +1,23 @@
 /* SchoolLogos.css */
 
-  .school-logos {
-    margin-top: 1em;
-  }
-  .logo-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .logo-item {
-    margin: 10px;
-    text-align: center;
-  }
-  
-  .logo-item img {
-    width: 100px;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
+.school-logos {
+  margin-top: 1em;
+}
+
+.logo-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.logo-item {
+  margin: 10px;
+  text-align: center;
+  width: 15%;
+}
+
+.logo-item img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}

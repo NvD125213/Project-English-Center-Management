@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Định tuyến cho đăng ký người dùng
 router.post('/create', ExamController.create)
+router.post('/submitExam', ExamController.submitExam)
 router.put('/update/:id', ExamController.update)
 router.put('/delete/:id', ExamController.delete)
 router.get('/getAll', ExamController.get)

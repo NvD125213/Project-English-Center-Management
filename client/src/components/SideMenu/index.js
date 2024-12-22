@@ -1,7 +1,8 @@
 import {
   AppstoreOutlined,
   MenuOutlined,
-  HighlightOutlined ,
+  HighlightOutlined,
+  AlignLeftOutlined,
   UserOutlined,
   WindowsOutlined,
   CalculatorOutlined
@@ -33,31 +34,31 @@ function SideMenu() {
           {
             label: "Dashboard",
             icon: <AppstoreOutlined />,
-            key: "/admin", 
+            key: "/admin",
           },
           {
             label: "Quản Lý Danh Mục",
-            key: "/admin/menu", 
+            key: "/admin/menu",
             icon: <MenuOutlined />,
           },
           {
             label: "Quản Lý Bài Viết",
-            key: "/admin/post", 
-            icon: <HighlightOutlined />,
+            key: "/admin/blog",
+            icon: <AlignLeftOutlined />,
           },
           {
             label: "Quản Lý Người Dùng",
-            key: "/admin/user", 
+            key: "/admin/user",
             icon: <UserOutlined />,
           },
           {
             label: "Quản Lý Chủ Đề",
-            key: "/admin/subject", 
+            key: "/admin/subject",
             icon: <WindowsOutlined />,
           },
           {
             label: "Quản Lý Bài Thi",
-            key: "/admin/exam", 
+            key: "/admin/exam",
             icon: <CalculatorOutlined />,
           },
         ]}

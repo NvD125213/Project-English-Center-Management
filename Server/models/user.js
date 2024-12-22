@@ -1,54 +1,55 @@
 import mongoose, { Schema } from 'mongoose';
-import isEmail from 'validator/lib/isEmail.js';
-import pkg from 'validator'; // Import toàn bộ module validator
-const { isMobilePhone } = pkg; // Trích xuất isMobilePhone từ module validator
+import validator from 'validator'; // Import thư viện validator
 
+// Định nghĩa UserSchema
 const UserSchema = new Schema({
     name: {
         type: String,
-        required: true, // not null
+        required: [true, 'Tên không được để trống'], // Thêm thông báo lỗi
     },
     log_Name: {
         type: String,
-        required: true,
+        required: [true, 'Tên đăng nhập không được để trống'], // Thêm thông báo lỗi
         unique: true,
         validate: {
             validator: (value) => value && value.length > 3,
-            message: 'Tên đăng nhập phải lớn hơn 3 ký tự!'
-        }
+            message: 'Tên đăng nhập phải lớn hơn 3 ký tự!',
+        },
     },
     email: {
         type: String,
-        required: true,
-        unique: true, // Đảm bảo email là duy nhất
+        required: [true, 'Email là bắt buộc'],
+        unique: true,
+        lowercase: true,
         validate: {
-            validator: (value) => isEmail(value),
-            message: 'Định dạng của Email không đúng!'
-        }
+            validator: (value) => validator.isEmail(value),
+            message: 'Định dạng email sai',
+        },
     },
     password: {
         type: String,
-        required: true,
+        required: [true, 'Mật khẩu không được để trống'],
     },
     phone: {
         type: String,
-        required: true,
+        required: [true, 'Số điện thoại không được để trống'],
         validate: {
-            validator: (value) => isMobilePhone(value, 'vi-VN'),
-            message: 'Số điện thoại không hợp lệ!'
-        }
+            validator: (value) => validator.isMobilePhone(value, 'vi-VN'),
+            message: 'Sai định dạng số điện thoại',
+        },
     },
     role: {
         type: Number,
         enum: [1, 2],
-        required: true,
-        default: 2
+        required: [true, 'Vai trò không được để trống'],
+        default: 2,
     },
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 const User = mongoose.model('User', UserSchema);
+
 export default User;

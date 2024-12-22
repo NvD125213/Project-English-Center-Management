@@ -1,0 +1,9 @@
+.zen-accordion-item {
+    background: #fff;
+    border-radius: 5px;
+    padding: 15px 30px 15px 90px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 0 10px #eee;
+    border: 1px solid #ddd;
+}

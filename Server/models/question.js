@@ -15,6 +15,7 @@ const Question = mongoose.model('Question',
                 text: { type: String } 
             }
         ],
+        // description: { type: String, required: true },
         correctOption: {type: String},
         createAt: {
             type: Date,
@@ -27,6 +28,7 @@ const GroupQuestion = mongoose.model('GroupQuestion',
     new Schema({
         part: { type: Number, required: true, min: 1, max: 7 },
         type: { type: String, enum: ['single', 'group'], required: true },
+        // description: { type: String, required: true },
         elements: [
             {
                 typeUrl: { type: String, enum: ['image', 'audio']},

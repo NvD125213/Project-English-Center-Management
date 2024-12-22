@@ -1,0 +1,16 @@
+.page-title-container {
+    background: url('https://zenlishtoeic.vn/wp-content/uploads/2023/03/zenlish-thiet-ke-chua-co-ten-2.png') no-repeat center center;
+    background-size: cover;
+    height: 200px;
+    /* Chiều cao của banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+}

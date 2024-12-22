@@ -1,0 +1,42 @@
+// styles.module.scss
+
+.p-6 {
+    padding: 4rem !important;
+}
+
+@mixin bg-img-footer {
+    background-image: url('https://zenlishtoeic.vn/wp-content/uploads/2024/07/zenlish-z3959169783641-18b85b5c0ae32dd4729902757f440da5.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+@mixin border-white {
+    border-bottom: 1px solid white !important;
+    border-left: 1px solid white !important;
+}
+
+
+
+.form-footer {
+    @include bg-img-footer();
+    padding: 2rem;
+    border-radius: 8px;
+
+    input {
+        background-color: transparent !important; // Nền trong suốt
+        @include border-white();
+        padding: 0.5rem;
+
+        ::placeholder {
+            color: white; // Placeholder màu trắng
+            opacity: 0.8;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: #f1f1f1;
+        }
+    }
+
+}

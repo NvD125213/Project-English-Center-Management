@@ -1,4 +1,4 @@
-import { PulseLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 
 const override = {
   display: "block",
@@ -7,11 +7,11 @@ const override = {
 
 const LoadingSpinner = ({ loading, color }) => {
   return (
-    <PulseLoader
+    <MoonLoader
       color={color}
       loading={loading}
       cssOverride={override}
-      size={15}  
+      size={10}
     />
   );
 };

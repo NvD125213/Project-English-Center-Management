@@ -8,13 +8,15 @@ import LoadingSpinner from '../../../../components/LoadingSpinner';
 const { Option } = Select;
 
 const DynamicForm2 = ({ examId, part, onQuestionsAdded }) => {
-  const [groups, setGroups] = useState([{ id: 1, image: '', audio: '', questions: [{ text: '', choices: ['', '', '', ''], correctChoice: '' }] }]);
-  const [loading, setLoading] = useState(false); 
+  const [groups, setGroups] = useState([
+    { id: 1, image: null, audio: null, questions: [{ text: '', choices: ['', '', '', ''], correctChoice: '' }] }
+  ]);
+  const [loading, setLoading] = useState(false);
 
   const addGroup = () => {
     setGroups((prevGroups) => [
       ...prevGroups,
-      { id: prevGroups.length + 1, image: '', audio: '', questions: [{ text: '', choices: ['', '', '', ''], correctChoice: '' }] }
+      { id: prevGroups.length + 1, image: null, audio: null, questions: [{ text: '', choices: ['', '', '', ''], correctChoice: '' }] }
     ]);
   };
 
@@ -28,12 +30,15 @@ const DynamicForm2 = ({ examId, part, onQuestionsAdded }) => {
     );
   };
 
-  const handleGroupChange = (groupIndex, field, value) => {
-    setGroups((prevGroups) =>
-      prevGroups.map((group, i) =>
-        i === groupIndex ? { ...group, [field]: value } : group
-      )
-    );
+  const handleGroupChange = (groupIndex, field, files) => {
+    if (files && files.length > 0) {
+      const fileArray = Array.from(files);
+      setGroups((prevGroups) =>
+        prevGroups.map((group, i) =>
+          i === groupIndex ? { ...group, [field]: fileArray } : group
+        )
+      );
+    }
   };
 
   const handleQuestionChange = (groupIndex, questionIndex, field, value, choiceIndex = null) => {
@@ -41,79 +46,79 @@ const DynamicForm2 = ({ examId, part, onQuestionsAdded }) => {
       prevGroups.map((group, i) =>
         i === groupIndex
           ? {
-              ...group,
-              questions: group.questions.map((question, qIndex) =>
-                qIndex === questionIndex
-                  ? {
-                      ...question,
-                      [field]: choiceIndex !== null
-                        ? question.choices.map((choice, cIndex) => (cIndex === choiceIndex ? value : choice))
-                        : value
-                    }
-                  : question
-              )
-            }
+            ...group,
+            questions: group.questions.map((question, qIndex) =>
+              qIndex === questionIndex
+                ? {
+                  ...question,
+                  [field]: choiceIndex !== null
+                    ? question.choices.map((choice, cIndex) => (cIndex === choiceIndex ? value : choice))
+                    : value
+                }
+                : question
+            )
+          }
           : group
       )
     );
   };
 
   const handleSubmit = async () => {
-   try {
-    setLoading(true)
-    const formData = new FormData();
-    for(const group of groups) {
-      const uploadedImageUrl = group.image ? await uploadFilesToFirebase([group.image], 'Image') : null;
-      const uploadedAudioUrl = group.audio ? await uploadFilesToFirebase([group.audio], 'Audio') : null;
+    setLoading(true);
+    try {
+      const uploadPromises = groups.map(async (group) => {
+        const [imageURL, audioURL] = await Promise.all([
+          group.image ? uploadFilesToFirebase(group.image, 'Image') : Promise.resolve(null),
+          group.audio ? uploadFilesToFirebase(group.audio, 'Audio') : Promise.resolve(null)
+        ]);
 
-      const groupData = {
-        audioUrl: uploadedAudioUrl ? uploadedAudioUrl[0] : null,
-        imageUrl : uploadedImageUrl ? uploadedImageUrl[0] : null,
-        questions: group.questions.map((q) => ({
-          title: q.text,
-          options: q.choices,
-          correctOption: q.correctChoice
-        }))
-      };
+        const questions = group.questions.map(question => ({
+          title: question.text,
+          options: question.choices.map((choice, i) => ({
+            option: ['A', 'B', 'C', 'D'][i],
+            text: choice
+          })),
+          correctOption: question.correctChoice,
+        }));
 
-      formData.append('groups', JSON.stringify(groupData))
-    }
+        return {
+          type: 'group',
+          elements: [{ typeUrl: 'audio', url: audioURL[0] || '' }, { typeUrl: 'image', url: imageURL[0] || '' }],
+          questions
+        };
+      });
 
-    const response = await api.post(`/question/create?idExam=${examId}&part=${part}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-
-    if (response.status === 201) {
-      setLoading(false)
+      const groupData = await Promise.all(uploadPromises);
+      const response = await api.post(`/question/createWithGroups?idExam=${examId}&part=${part}`, {
+        groups: groupData,
+      });
       onQuestionsAdded(response.data.message);
-    }  
-   } catch (error) {
-    toast.error("Có lỗi xảy ra khi thêm câu hỏi.");
-    console.error(error);
-   }
-   finally {
-    setLoading(false);  
-  }
+
+    } catch (error) {
+      console.error(error);
+      toast.error('Lỗi khi lưu câu hỏi');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
+      {loading && <LoadingSpinner />}
       {groups.map((group, groupIndex) => (
         <div key={group.id} className="border p-3 mb-3">
           <h4>Group {groupIndex + 1}</h4>
 
           <Form.Item label="Image" className="mb-3">
-            <Input type="file" accept="image/*" onChange={(e) => handleGroupChange(groupIndex, 'image', e.target.files[0])} />
+            <Input type="file" accept="image/*" onChange={(e) => handleGroupChange(groupIndex, 'image', e.target.files)} />
           </Form.Item>
 
           <Form.Item label="Audio" className="mb-3">
-            <Input type="file" accept="audio/*" onChange={(e) => handleGroupChange(groupIndex, 'audio', e.target.files[0])} />
+            <Input type="file" accept="audio/*" onChange={(e) => handleGroupChange(groupIndex, 'audio', e.target.files)} />
           </Form.Item>
 
           {group.questions.map((question, questionIndex) => (
-            <div key={questionIndex} className="mb-3">
+            <div key={`${groupIndex}-${questionIndex}`} className="mb-3">
               <Form.Item label={`Text câu hỏi ${questionIndex + 1}`} className="mb-3">
                 <Input.TextArea
                   value={question.text}

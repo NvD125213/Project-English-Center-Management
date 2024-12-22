@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../../styles/index.scss';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Popover, Button } from 'antd';
 import { logoutUser } from '../../../store/userSlice';
+import { getUserProfile } from '../../../store/userSlice';
 
 const Topbar = () => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.user) || {};  
-
+  const { user, isAuthenticated } = useSelector((state) => state.user) || {};
+  const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logoutUser());
+    navigate('/');
   };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch]);
+
+  const userPopoverContent = (
+    <div>
+      <p>
+        <Link to="/profile-user">Thông tin cá nhân</Link>
+      </p>
+      <p>
+        <Link
+          to="/history-management"
+          state={{ userId: user?._id || "" }}
+        >Lịch sử thi</Link>
+      </p>
+      <Button type="link" onClick={handleLogout} style={{ padding: 0 }}>
+        Đăng xuất
+      </Button>
+    </div>
+  );
 
   return (
     <div className="topbar bg-light py-2">
@@ -28,13 +56,17 @@ const Topbar = () => {
         <div className="right-section d-flex">
           {isAuthenticated ? (
             <div>
-              <span className="me-3 text-dark">Xin chào, {user?.name}!</span>
-              <button onClick={handleLogout} className="me-3 text-dark" style={{border: '0px'}}>Đăng xuất</button>
+              <Popover content={userPopoverContent} trigger="click">
+                <Button type="text" className="me-3">
+                  {user?.log_Name}
+                </Button>
+              </Popover>
+              <button onClick={handleLogout} className="me-3" style={{ border: '0px' }}>Đăng xuất</button>
             </div>
           ) : (
             <>
-              <Link to="/login" className="me-3 text-dark">Đăng nhập</Link>
-              <Link to="/register" className="text-dark">Đăng ký</Link>
+              <Link to="/auth" className="me-3 text-dark">Đăng nhập</Link>
+              <Link to="/auth" className="text-dark">Đăng ký</Link>
             </>
           )}
         </div>

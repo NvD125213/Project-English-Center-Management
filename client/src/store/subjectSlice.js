@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { get, create, update, remove } from "../services/subject"
 export const getSubject = createAsyncThunk('subject/getSubject', async () => {
-    const response = await get();
-    return response.data;
+  const response = await get();
+  return response.data;
 });
 
 export const addSubject = createAsyncThunk('subject/addSubject', async (subject) => {
-    const response = await create(subject);
-    return response;
+  const response = await create(subject);
+  return response;
 });
 
 export const updateSubject = createAsyncThunk('subject/updateSubject', async (subject) => {
-  const response = await update(subject); 
+  const response = await update(subject);
   return response;
 });
 
@@ -21,9 +21,9 @@ export const deleteSubject = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await remove(id);
-      return response; 
+      return response;
     } catch (error) {
-      return rejectWithValue(error.response.data); 
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -33,7 +33,9 @@ const subjectSlice = createSlice({
     subjects: [],
     loading: false,
   },
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getSubject.pending, (state) => {
@@ -49,7 +51,7 @@ const subjectSlice = createSlice({
       .addCase(updateSubject.fulfilled, (state, action) => {
         const index = state.subjects.findIndex((subject) => subject._id === action.payload._id);
         if (index !== -1) {
-          state.subjects[index] = action.payload; 
+          state.subjects[index] = action.payload;
         }
       })
       .addCase(deleteSubject.fulfilled, (state, action) => {
